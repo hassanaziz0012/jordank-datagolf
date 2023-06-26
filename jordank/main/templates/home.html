@@ -1,3 +1,5 @@
+
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,16 +22,47 @@
         th {
             cursor: pointer;
         }
+
+        .nav-item {
+            font-size: 16px;
+            margin-right: 1em;
+        }
     </style>
 </head>
 
 <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+            <img src="{% static 'TNL-Logo-tiny.png' %}"  alt="">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="container">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto nav-right">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link 1</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link 2</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link 3</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
     <div class="container">
 
         {% block content %}
         <div class="row">
             <h3 class="mt-5">Final Data</h3>
-            <div class="col-md-12">
+            <div class="col-lg-9">
                 <table id="final_data" class="table">
                     <thead>
                         <tr>
@@ -49,70 +82,70 @@
                     </tbody>
                 </table>
             </div>
-            <h3 class="mt-5">Offset Counts</h3>
-            <div class="col-md-12">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            {% for column in offset_counts.reset_index.columns %}
-                            <th>{{ column }}</th>
+            <div class="row col-lg-3">
+                <h3 class="mt-5">Offset Counts</h3>
+                <div class="col-md-12">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                {% for column in offset_counts.reset_index.columns %}
+                                <th>{{ column }}</th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for index, row in offset_counts.reset_index.iterrows %}
+                            <tr>
+                                {% for value in row %}
+                                <td>{{ value }}</td>
+                                {% endfor %}
+                            </tr>
                             {% endfor %}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for index, row in offset_counts.reset_index.iterrows %}
-                        <tr>
-                            {% for value in row %}
-                            <td>{{ value }}</td>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 class="mt-5">Cumulative Counts</h3>
+                <div class="col-md-12">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                {% for column in cumulative_counts.reset_index.columns %}
+                                <th>{{ column }}</th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for index, row in cumulative_counts.reset_index.iterrows %}
+                            <tr>
+                                {% for value in row %}
+                                <td>{{ value }}</td>
+                                {% endfor %}
+                            </tr>
                             {% endfor %}
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="row">
-            <h3 class="mt-5">Cumulative Counts</h3>
-            <div class="col-md-12">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            {% for column in cumulative_counts.reset_index.columns %}
-                            <th>{{ column }}</th>
+                        </tbody>
+                    </table>
+                </div>
+                <h3 class="mt-5">Cumulative Counts Excluding Leaders</h3>
+                <div class="col-md-12">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                {% for column in cumulative_counts_excluding_leaders.reset_index.columns %}
+                                <th>{{ column }}</th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for index, row in cumulative_counts_excluding_leaders.reset_index.iterrows %}
+                            <tr>
+                                {% for value in row %}
+                                <td>{{ value }}</td>
+                                {% endfor %}
+                            </tr>
                             {% endfor %}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for index, row in cumulative_counts.reset_index.iterrows %}
-                        <tr>
-                            {% for value in row %}
-                            <td>{{ value }}</td>
-                            {% endfor %}
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-            <h3 class="mt-5">Cumulative Counts Excluding Leaders</h3>
-            <div class="col-md-12">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            {% for column in cumulative_counts_excluding_leaders.reset_index.columns %}
-                            <th>{{ column }}</th>
-                            {% endfor %}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for index, row in cumulative_counts_excluding_leaders.reset_index.iterrows %}
-                        <tr>
-                            {% for value in row %}
-                            <td>{{ value }}</td>
-                            {% endfor %}
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
 
