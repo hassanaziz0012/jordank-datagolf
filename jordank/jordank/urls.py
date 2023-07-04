@@ -18,12 +18,14 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path
-from main.views import HomeView
+from main.views import HomeView, SampleView
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', HomeView.as_view(), name="home"),
+    path('sample', SampleView.as_view(), name="sample"),
 ]
+
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
